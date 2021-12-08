@@ -1,3 +1,4 @@
+from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.decorators import action
 from rest_framework.generics import get_object_or_404
@@ -65,6 +66,18 @@ class CursoViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class AvaliacaoViewSet(viewsets.ModelViewSet):
+# class AvaliacaoViewSet(viewsets.ModelViewSet):
+#     queryset = Avaliacao.objects.all()
+#     serializer_class = AvaliacaoSerializer
+
+class AvaliacaoViewSet(
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    # mixins.DestroyModelMixin,   #comentar para nao deixar ser executado
+    viewsets.GenericViewSet
+):
     queryset = Avaliacao.objects.all()
     serializer_class = AvaliacaoSerializer
+
