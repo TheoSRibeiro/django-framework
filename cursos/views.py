@@ -10,6 +10,7 @@ from rest_framework import permissions
 
 from .models import Curso, Avaliacao
 from .serializers import CursoSerializer, AvaliacaoSerializer
+from .permissions import EhSuperUser
 
 """
 API V1
@@ -58,8 +59,12 @@ API V2
 
 
 class CursoViewSet(viewsets.ModelViewSet):
-    #Permissao para cada usr acessar o curso atraves do DjangoModel
-    permission_classes = (permissions.DjangoModelPermissions,)
+    #Permissao para cada usr acessar o curso atraves do DjangoModel (localhost:8000/admin) -> atribuir permissoes ao usr la
+    permission_classes = (
+        # a ordem faz a diferença
+        EhSuperUser, #Se suprir essa permissao, nao vai para 'DjangoModelPermissions'
+        permissions.DjangoModelPermissions,
+    )
 
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
