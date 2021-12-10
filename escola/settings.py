@@ -144,7 +144,20 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 2
+    'PAGE_SIZE': 2,
+
+    #Requisicoes na API
+    "DEFAULT_THROTTLE_CLASSES": (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ),
+
+    #limite de requisicoes a serem feitas - se passar de n requisicoes, retorna error 429 - too many requests
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '5/minute',  #second, day, month, year...
+        'user': '10/minute'
+    }
+
 }
 
 
