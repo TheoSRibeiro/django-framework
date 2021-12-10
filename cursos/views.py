@@ -6,6 +6,8 @@ from rest_framework.generics import get_object_or_404
 from rest_framework import viewsets  # API V2
 from rest_framework.response import Response
 
+from rest_framework import permissions
+
 from .models import Curso, Avaliacao
 from .serializers import CursoSerializer, AvaliacaoSerializer
 
@@ -56,6 +58,9 @@ API V2
 
 
 class CursoViewSet(viewsets.ModelViewSet):
+    #Permissao para cada usr acessar o curso atraves do DjangoModel
+    permission_classes = (permissions.DjangoModelPermissions,)
+
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
 

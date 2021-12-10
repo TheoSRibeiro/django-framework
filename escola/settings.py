@@ -8,6 +8,10 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
+
+Token (theosribeiro): c6ad4a70d75b5fb0cc171c53596cb4168f18b15a
+ Token (felicity): 7d0bfe2e4d44f1f2871f0e9ac1b06c9f37ca2e4b
+
 """
 import os
 from pathlib import Path
@@ -41,6 +45,7 @@ INSTALLED_APPS = [
     #bibliotecas extras externas do django
     'django_filters',
     'rest_framework',
+    'rest_framework.authtoken',
 
     #Aplicacoes
     'cursos',
@@ -132,7 +137,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 #DRF
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication', #autenticacao por sessao
+        'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
